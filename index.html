@@ -12,7 +12,7 @@
       <button id="signUpBtn" onclick="toggleForm('signUp')">Sign Up</button>
     </div>
     <!-- Sign In Form -->
-    <form id="signInForm" class="active-form">
+    <form id="signInForm">
       <div class="form-group">
         <input type="text" id="signin-email-phone" placeholder="Email or Phone Number" required>
       </div>
@@ -62,28 +62,25 @@
         signInBtn.classList.add('active');
         signUpBtn.classList.remove('active');
         signInForm.classList.remove('hidden');
-        signInForm.classList.add('active-form');
         signUpForm.classList.add('hidden');
         signUpPasswordForm.classList.add('hidden');
       } else {
         signUpBtn.classList.add('active');
         signInBtn.classList.remove('active');
-        signUpForm.classList.remove('active');
-        signUpForm.classList.add('active-form');
         signInForm.classList.add('hidden');
+        signUpForm.classList.remove('hidden');
         signUpPasswordForm.classList.add('hidden');
       }
     }
 
     // Step to password creation in sign up
     proceedSignUp.addEventListener('click', function () {
-      // You can add validation here if needed before proceeding
+      // Add validation if needed
       signUpForm.classList.add('hidden');
       signUpPasswordForm.classList.remove('hidden');
-      signUpPasswordForm.classList.add('active-form');
     });
 
-    // Optional: Prevent default submission for demo, alert user
+    // Prevent default submission for demo
     signInForm.addEventListener('submit', function(e) {
       e.preventDefault();
       alert('Signed in! (Demo)');
