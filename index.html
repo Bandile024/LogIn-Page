@@ -11,43 +11,88 @@
       <button id="signInBtn" class="active" onclick="toggleForm('signIn')">Sign In</button>
       <button id="signUpBtn" onclick="toggleForm('signUp')">Sign Up</button>
     </div>
-    <form id="mainForm">
+    <!-- Sign In Form -->
+    <form id="signInForm" class="active-form">
       <div class="form-group">
-        <input type="text" id="name" placeholder="Name" required>
+        <input type="text" id="signin-email-phone" placeholder="Email or Phone Number" required>
       </div>
       <div class="form-group">
-        <input type="text" id="surname" placeholder="Surname" required>
+        <input type="password" id="signin-password" placeholder="Password" required>
+      </div>
+      <button type="submit" class="form-btn">Sign In</button>
+    </form>
+    <!-- Sign Up Step 1 -->
+    <form id="signUpForm" class="hidden">
+      <div class="form-group">
+        <input type="text" id="signup-name" placeholder="Name" required>
       </div>
       <div class="form-group">
-        <input type="tel" id="phone" placeholder="Phone Number" required>
+        <input type="text" id="signup-surname" placeholder="Surname" required>
       </div>
       <div class="form-group">
-        <input type="email" id="email" placeholder="Email Address" required>
+        <input type="tel" id="signup-phone" placeholder="Phone Number" required>
       </div>
-      <button type="submit" id="formActionBtn" class="form-btn">Sign In</button>
+      <div class="form-group">
+        <input type="email" id="signup-email" placeholder="Email Address" required>
+      </div>
+      <button type="button" class="form-btn" id="proceedSignUp">Sign Up</button>
+    </form>
+    <!-- Sign Up Step 2: Password Creation -->
+    <form id="signUpPasswordForm" class="hidden">
+      <div class="form-group">
+        <input type="password" id="signup-password" placeholder="Create Password" required>
+      </div>
+      <div class="form-group">
+        <input type="password" id="signup-password-confirm" placeholder="Confirm Password" required>
+      </div>
+      <button type="submit" class="form-btn">Finish Sign Up</button>
     </form>
   </div>
   <script>
     const signInBtn = document.getElementById('signInBtn');
     const signUpBtn = document.getElementById('signUpBtn');
-    const formActionBtn = document.getElementById('formActionBtn');
-    const mainForm = document.getElementById('mainForm');
-    let currentMode = 'signIn';
+    const signInForm = document.getElementById('signInForm');
+    const signUpForm = document.getElementById('signUpForm');
+    const signUpPasswordForm = document.getElementById('signUpPasswordForm');
+    const proceedSignUp = document.getElementById('proceedSignUp');
+
+    // Toggle between sign in and sign up
     function toggleForm(mode) {
-      currentMode = mode;
       if (mode === 'signIn') {
         signInBtn.classList.add('active');
         signUpBtn.classList.remove('active');
-        formActionBtn.textContent = 'Sign In';
+        signInForm.classList.remove('hidden');
+        signInForm.classList.add('active-form');
+        signUpForm.classList.add('hidden');
+        signUpPasswordForm.classList.add('hidden');
       } else {
         signUpBtn.classList.add('active');
         signInBtn.classList.remove('active');
-        formActionBtn.textContent = 'Sign Up';
+        signUpForm.classList.remove('hidden');
+        signUpForm.classList.add('active-form');
+        signInForm.classList.add('hidden');
+        signUpPasswordForm.classList.add('hidden');
       }
     }
-    mainForm.addEventListener('submit', function(e) {
+
+    // Step to password creation in sign up
+    proceedSignUp.addEventListener('click', function () {
+      // You can add validation here if needed before proceeding
+      signUpForm.classList.add('hidden');
+      signUpPasswordForm.classList.remove('hidden');
+      signUpPasswordForm.classList.add('active-form');
+    });
+
+    // Optional: Prevent default submission for demo, alert user
+    signInForm.addEventListener('submit', function(e) {
       e.preventDefault();
-      alert('Submitted as: ' + currentMode + '\n(Not yet connected to backend)');
+      alert('Signed in! (Demo)');
+    });
+    signUpPasswordForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      alert('Sign up complete! (Demo)');
+      // Optionally, reset to sign in mode:
+      toggleForm('signIn');
     });
   </script>
 </body>
