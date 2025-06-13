@@ -1,25 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>To-Do App</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <title>Sign In / Sign Up Page</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="container">
-        <h1>To-Do</h1>
-        <div class="input-section">
-            <input type="text" id="taskInput" placeholder="Add a task">
-            <button id="addButton">Add Task</button>
-        </div>
-        <ul class="task-list">
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-        </ul>
+  <div class="container">
+    <div class="toggle-btns">
+      <button id="signInBtn" class="active" onclick="toggleForm('signIn')">Sign In</button>
+      <button id="signUpBtn" onclick="toggleForm('signUp')">Sign Up</button>
     </div>
+    <form id="mainForm">
+      <div class="form-group">
+        <input type="text" id="name" placeholder="Name" required>
+      </div>
+      <div class="form-group">
+        <input type="text" id="surname" placeholder="Surname" required>
+      </div>
+      <div class="form-group">
+        <input type="tel" id="phone" placeholder="Phone Number" required>
+      </div>
+      <div class="form-group">
+        <input type="email" id="email" placeholder="Email Address" required>
+      </div>
+      <button type="submit" id="formActionBtn" class="form-btn">Sign In</button>
+    </form>
+  </div>
+  <script>
+    const signInBtn = document.getElementById('signInBtn');
+    const signUpBtn = document.getElementById('signUpBtn');
+    const formActionBtn = document.getElementById('formActionBtn');
+    const mainForm = document.getElementById('mainForm');
+    let currentMode = 'signIn';
+    function toggleForm(mode) {
+      currentMode = mode;
+      if (mode === 'signIn') {
+        signInBtn.classList.add('active');
+        signUpBtn.classList.remove('active');
+        formActionBtn.textContent = 'Sign In';
+      } else {
+        signUpBtn.classList.add('active');
+        signInBtn.classList.remove('active');
+        formActionBtn.textContent = 'Sign Up';
+      }
+    }
+    mainForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      alert('Submitted as: ' + currentMode + '\n(Not yet connected to backend)');
+    });
+  </script>
 </body>
 </html>
