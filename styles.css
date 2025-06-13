@@ -12,8 +12,8 @@ body {
   border-radius: 20px;
   box-shadow: 0 4px 24px rgba(0,0,0,0.1);
   padding: 40px 30px 30px 30px;
-  width: 750px;
-  height: 750px;
+  width: 768px;
+  height: 675px;
   justify-content: space-evenly;
   display: flex;
   flex-direction: column;
