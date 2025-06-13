@@ -66,12 +66,13 @@ body {
   margin-top: 10px;
   transition: background 0.2s;
 }
-.form-btn:hover {
+.form-btn:disabled {
+  background: #cccccc;
+  cursor: not-allowed;
+}
+.form-btn:hover:enabled {
   background: #0056b3;
 }
 .hidden {
   display: none;
-}
-.active-form {
-  display: block;
 }
