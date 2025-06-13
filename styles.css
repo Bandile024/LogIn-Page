@@ -69,3 +69,9 @@ body {
 .form-btn:hover {
   background: #0056b3;
 }
+.hidden {
+  display: none;
+}
+.active-form {
+  display: block;
+}
