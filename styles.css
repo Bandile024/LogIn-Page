@@ -1,1 +1,71 @@
-
+body {
+  background: #f0f2f5;
+  font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+.container {
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.1);
+  padding: 40px 30px 30px 30px;
+  width: 350px;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+.toggle-btns {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 30px;
+}
+.toggle-btns button {
+  flex: 1;
+  padding: 10px 0;
+  background: none;
+  border: none;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  border-bottom: 3px solid transparent;
+  transition: border-color 0.2s;
+}
+.toggle-btns .active {
+  border-bottom: 3px solid #007bff;
+  color: #007bff;
+}
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 18px;
+}
+.form-group input {
+  border: none;
+  border-bottom: 2px solid #ccc;
+  padding: 12px 0;
+  font-size: 16px;
+  width: 100%;
+  outline: none;
+  transition: border-color 0.2s;
+  background: transparent;
+}
+.form-group input:focus {
+  border-bottom: 2px solid #007bff;
+}
+.form-btn {
+  background: #007bff;
+  color: #fff;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: background 0.2s;
+}
+.form-btn:hover {
+  background: #0056b3;
+}
