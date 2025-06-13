@@ -19,7 +19,7 @@
       <div class="form-group">
         <input type="password" id="signin-password" placeholder="Password" required>
       </div>
-      <button type="submit" class="form-btn">Sign In</button>
+      <button type="submit" class="form-btn" id="signInSubmit" disabled>Sign In</button>
     </form>
     <!-- Sign Up Step 1 -->
     <form id="signUpForm" class="hidden">
@@ -35,7 +35,7 @@
       <div class="form-group">
         <input type="email" id="signup-email" placeholder="Email Address" required>
       </div>
-      <button type="button" class="form-btn" id="proceedSignUp">Sign Up</button>
+      <button type="button" class="form-btn" id="proceedSignUp" disabled>Sign Up</button>
     </form>
     <!-- Sign Up Step 2: Password Creation -->
     <form id="signUpPasswordForm" class="hidden">
@@ -45,10 +45,11 @@
       <div class="form-group">
         <input type="password" id="signup-password-confirm" placeholder="Confirm Password" required>
       </div>
-      <button type="submit" class="form-btn">Finish Sign Up</button>
+      <button type="submit" class="form-btn" id="signUpPasswordSubmit" disabled>Finish Sign Up</button>
     </form>
   </div>
   <script>
+    // Toggle buttons and forms
     const signInBtn = document.getElementById('signInBtn');
     const signUpBtn = document.getElementById('signUpBtn');
     const signInForm = document.getElementById('signInForm');
@@ -56,7 +57,63 @@
     const signUpPasswordForm = document.getElementById('signUpPasswordForm');
     const proceedSignUp = document.getElementById('proceedSignUp');
 
-    // Toggle between sign in and sign up
+    // Sign In fields
+    const signInEmailPhone = document.getElementById('signin-email-phone');
+    const signInPassword = document.getElementById('signin-password');
+    const signInSubmit = document.getElementById('signInSubmit');
+
+    // Sign Up Step 1 fields
+    const signUpName = document.getElementById('signup-name');
+    const signUpSurname = document.getElementById('signup-surname');
+    const signUpPhone = document.getElementById('signup-phone');
+    const signUpEmail = document.getElementById('signup-email');
+
+    // Sign Up Step 2 fields
+    const signUpPassword = document.getElementById('signup-password');
+    const signUpPasswordConfirm = document.getElementById('signup-password-confirm');
+    const signUpPasswordSubmit = document.getElementById('signUpPasswordSubmit');
+
+    // Helper validation functions
+    function validateSignIn() {
+      const emailPhone = signInEmailPhone.value.trim();
+      const password = signInPassword.value.trim();
+      signInSubmit.disabled = !(emailPhone.length > 0 && password.length > 0);
+    }
+
+    function validateSignUpStep1() {
+      const name = signUpName.value.trim();
+      const surname = signUpSurname.value.trim();
+      const phone = signUpPhone.value.trim();
+      const email = signUpEmail.value.trim();
+      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      const phonePattern = /^\d{10,15}$/;
+      proceedSignUp.disabled = !(
+        name.length > 0 &&
+        surname.length > 0 &&
+        phonePattern.test(phone) &&
+        emailPattern.test(email)
+      );
+    }
+
+    function validateSignUpStep2() {
+      const pass = signUpPassword.value;
+      const confirm = signUpPasswordConfirm.value;
+      signUpPasswordSubmit.disabled = !(pass.length >= 6 && pass === confirm);
+    }
+
+    // Event listeners for real-time validation
+    signInEmailPhone.addEventListener('input', validateSignIn);
+    signInPassword.addEventListener('input', validateSignIn);
+
+    signUpName.addEventListener('input', validateSignUpStep1);
+    signUpSurname.addEventListener('input', validateSignUpStep1);
+    signUpPhone.addEventListener('input', validateSignUpStep1);
+    signUpEmail.addEventListener('input', validateSignUpStep1);
+
+    signUpPassword.addEventListener('input', validateSignUpStep2);
+    signUpPasswordConfirm.addEventListener('input', validateSignUpStep2);
+
+    // Toggle between forms
     function toggleForm(mode) {
       if (mode === 'signIn') {
         signInBtn.classList.add('active');
@@ -64,23 +121,25 @@
         signInForm.classList.remove('hidden');
         signUpForm.classList.add('hidden');
         signUpPasswordForm.classList.add('hidden');
+        validateSignIn();
       } else {
         signUpBtn.classList.add('active');
         signInBtn.classList.remove('active');
         signInForm.classList.add('hidden');
         signUpForm.classList.remove('hidden');
         signUpPasswordForm.classList.add('hidden');
+        validateSignUpStep1();
       }
     }
 
-    // Step to password creation in sign up
+    // Proceed to password step in sign up
     proceedSignUp.addEventListener('click', function () {
-      // Add validation if needed
       signUpForm.classList.add('hidden');
       signUpPasswordForm.classList.remove('hidden');
+      validateSignUpStep2();
     });
 
-    // Prevent default submission for demo
+    // Prevent default submit for demonstration
     signInForm.addEventListener('submit', function(e) {
       e.preventDefault();
       alert('Signed in! (Demo)');
@@ -88,9 +147,13 @@
     signUpPasswordForm.addEventListener('submit', function(e) {
       e.preventDefault();
       alert('Sign up complete! (Demo)');
-      // Optionally, reset to sign in mode:
       toggleForm('signIn');
     });
+
+    // Initial validation on load
+    validateSignIn();
+    validateSignUpStep1();
+    validateSignUpStep2();
   </script>
 </body>
 </html>
